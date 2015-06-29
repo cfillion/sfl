@@ -10,12 +10,12 @@ CXXFLAGS := -Wall -Wextra -pipe -fPIC
 CXXFLAGS += -fcolor-diagnostics
 CXXFLAGS += -O2 -std=c++11
 
-ifeq (@(TUP_FLATFORM),linux)
+ifeq (@(TUP_PLATFORM),linux)
   LIB_TARGET = lib$(LIB_NAME).so.$(VERSION)
-  SO_TARGET  = lib$(lib_NAME).so.$(VERSION_BC)
+  SO_TARGET  = lib$(LIB_NAME).so.$(VERSION_BC)
   LD_TARGET  = lib$(LIB_NAME).so
 
-  SOFLAGS += -Wl,-soname,$(SO_TARGET)
+  SOFLAGS += -shared -Wl,-soname,$(SO_TARGET)
 endif
 
 ifeq (@(TUP_PLATFORM),macosx)
@@ -24,8 +24,12 @@ ifeq (@(TUP_PLATFORM),macosx)
   LD_TARGET  = lib$(LIB_NAME).dylib
 
   LDFLAGS += -stdlib=libc++
-  SOFLAGS := -dynamiclib \
+  SOFLAGS += -dynamiclib \
     -current_version $(VERSION) -compatibility_version $(VERSION_BC)
+endif
+
+ifeq ($(LIB_TARGET),)
+  error Unsupported platform.
 endif
 
 !build = |> $(CXX) $(CXXFLAGS) -c %f -o %o |>
