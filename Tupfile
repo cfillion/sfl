@@ -1,0 +1,40 @@
+LIB_NAME    = sfl
+TEST_TARGET = tests
+
+VERSION     = 0.0.1
+VERSION_BC  = 0
+
+CXX = clang++
+
+CXXFLAGS := -Wall -Wextra -pipe -fPIC
+CXXFLAGS += -fcolor-diagnostics
+CXXFLAGS += -O2 -std=c++11
+
+ifeq (@(TUP_FLATFORM),linux)
+  LIB_TARGET = lib$(LIB_NAME).so.$(VERSION)
+  SO_TARGET  = lib$(lib_NAME).so.$(VERSION_BC)
+  LD_TARGET  = lib$(LIB_NAME).so
+
+  SOFLAGS += -Wl,-soname,$(SO_TARGET)
+endif
+
+ifeq (@(TUP_PLATFORM),macosx)
+  LIB_TARGET = lib$(LIB_NAME).$(VERSION).dylib
+  SO_TARGET  = lib$(LIB_NAME).$(VERSION_BC).dylib
+  LD_TARGET  = lib$(LIB_NAME).dylib
+
+  LDFLAGS += -stdlib=libc++
+  SOFLAGS := -dynamiclib
+endif
+
+!build = |> $(CXX) $(CXXFLAGS) -c %f -o %o |>
+!link  = |> $(CXX) $(CXXFLAGS) %f $(LDFLAGS) -o %o |>
+
+: foreach src/*.cpp |> !build |> build/%B.o
+: build/*.o |> !link $(SOFLAGS) |> $(LIB_TARGET)
+: $(LIB_TARGET) |> ln -s %f %o |> $(SO_TARGET)
+: $(SO_TARGET) |> ln -s %f %o |> $(LD_TARGET)
+
+: foreach test/*.cpp |> !build |> build/test/%B.o
+: build/test/*.o | $(LIB_TARGET) $(SO_TARGET) $(LD_TARGET) |> \
+  !link -L. -l$(LIB_NAME) |> $(TEST_TARGET)
