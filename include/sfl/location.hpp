@@ -3,6 +3,8 @@
 
 #include <boost/format/format_fwd.hpp>
 
+#include "macros.hpp"
+
 namespace sfl {
   class doctor;
   class registry;
@@ -12,7 +14,7 @@ namespace sfl {
     sfl::registry *registry;
   };
 
-  class location {
+  class SFL_EXPORT location {
   public:
     location(const context &c = sfl::context());
 
@@ -27,11 +29,11 @@ namespace sfl {
     friend bool operator!=(const location &left, const location &right);
   };
 
-  bool operator==(const context &left, const context &right);
-  bool operator!=(const context &left, const context &right);
+  SFL_EXPORT bool operator==(const context &left, const context &right);
+  SFL_EXPORT bool operator!=(const context &left, const context &right);
 
-  bool operator==(const location &left, const location &right);
-  bool operator!=(const location &left, const location &right);
+  SFL_EXPORT bool operator==(const location &left, const location &right);
+  SFL_EXPORT bool operator!=(const location &left, const location &right);
 };
 
 #endif

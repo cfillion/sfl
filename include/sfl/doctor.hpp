@@ -5,17 +5,18 @@
 #include <vector>
 
 #include "diagnosis.hpp"
+#include "macros.hpp"
 
 namespace sfl {
   typedef std::vector<diagnosis> diagnosis_bag;
 
-  void error_at(const location &, const boost::format &);
-  void error_at(const location &, const std::string &);
+  SFL_EXPORT void error_at(const location &, const boost::format &);
+  SFL_EXPORT void error_at(const location &, const std::string &);
 
-  void diagnose_at(const location &,
+  SFL_EXPORT void diagnose_at(const location &,
     const std::string &, const enum diagnosis::level);
 
-  class doctor {
+  class SFL_EXPORT doctor {
   public:
     const std::vector<diagnosis> &bag() const { return m_bag; }
 

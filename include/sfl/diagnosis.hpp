@@ -4,9 +4,10 @@
 #include <ostream>
 
 #include "location.hpp"
+#include "macros.hpp"
 
 namespace sfl {
-  class diagnosis {
+  class SFL_EXPORT diagnosis {
   public:
     enum level { error, warning, note };
 
@@ -24,9 +25,9 @@ namespace sfl {
     sfl::location m_location;
   };
 
-  bool operator==(const diagnosis &left, const diagnosis &right);
-  bool operator!=(const diagnosis &left, const diagnosis &right);
-  std::ostream &operator<<(std::ostream &os, const diagnosis &value);
+  SFL_EXPORT bool operator==(const diagnosis &left, const diagnosis &right);
+  SFL_EXPORT bool operator!=(const diagnosis &left, const diagnosis &right);
+  SFL_EXPORT std::ostream &operator<<(std::ostream &os, const diagnosis &value);
 };
 
 #endif

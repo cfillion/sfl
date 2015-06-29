@@ -5,11 +5,12 @@
 
 #include "location.hpp"
 #include "registry.hpp"
+#include "macros.hpp"
 
 namespace sfl {
   class definition;
 
-  class object {
+  class SFL_EXPORT object {
   public:
     object(const std::string &name, const location &loc);
 

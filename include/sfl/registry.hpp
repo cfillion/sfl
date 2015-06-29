@@ -4,8 +4,10 @@
 #include <string>
 #include <unordered_map>
 
+#include "macros.hpp"
+
 namespace sfl {
-  class definition {
+  class SFL_EXPORT definition {
   public:
     definition() {}
     definition(const std::string &name, const int user_data = -1)
@@ -21,7 +23,7 @@ namespace sfl {
 
   typedef std::unordered_map<std::string, definition> definition_map;
 
-  class registry {
+  class SFL_EXPORT registry {
   public:
     registry() {}
 

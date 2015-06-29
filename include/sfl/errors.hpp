@@ -1,10 +1,12 @@
 #ifndef SFL_ERRORS_HPP
 #define SFL_ERRORS_HPP
 
-#define ERROR_TYPE(type) class type : public error {};
+#include "macros.hpp"
+
+#define ERROR_TYPE(type) class SFL_EXPORT type : public error {};
 
 namespace sfl {
-  class error {};
+  class SFL_EXPORT error {};
 
   ERROR_TYPE(duplicate_definition);
   ERROR_TYPE(missing_doctor);

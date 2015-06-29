@@ -11,6 +11,7 @@ CXX = clang++
 
 CXXFLAGS := -Wall -Wextra -pipe -fPIC
 CXXFLAGS += -fcolor-diagnostics
+CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden
 CXXFLAGS += -O2 -std=c++11
 CXXFLAGS += -I$(INCL_PATH)
 
@@ -40,7 +41,7 @@ endif
 !link  = |> $(CXX) $(CXXFLAGS) %f $(LDFLAGS) -o %o |>
 
 # building the shared library
-: foreach src/*.cpp |> !build |> $(BUILD_PATH)%B.o
+: foreach src/*.cpp |> !build -DSFL_SHARED |> $(BUILD_PATH)%B.o
 : $(BUILD_PATH)*.o |> !link $(SOFLAGS) |> $(LIB_PATH)$(LIB_TARGET)
 
 # liba.1.2.3.so -> liba.1.so
