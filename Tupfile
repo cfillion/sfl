@@ -24,7 +24,8 @@ ifeq (@(TUP_PLATFORM),macosx)
   LD_TARGET  = lib$(LIB_NAME).dylib
 
   LDFLAGS += -stdlib=libc++
-  SOFLAGS := -dynamiclib
+  SOFLAGS := -dynamiclib \
+    -current_version $(VERSION) -compatibility_version $(VERSION_BC)
 endif
 
 !build = |> $(CXX) $(CXXFLAGS) -c %f -o %o |>
