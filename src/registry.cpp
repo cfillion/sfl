@@ -1,6 +1,5 @@
-#include "registry.hpp"
-
-#include "errors.hpp"
+#include <sfl/errors.hpp>
+#include <sfl/registry.hpp>
 
 using namespace sfl;
 

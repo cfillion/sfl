@@ -1,8 +1,6 @@
-#include "doctor.hpp"
-
 #include <boost/format.hpp>
-
-#include "errors.hpp"
+#include <sfl/doctor.hpp>
+#include <sfl/errors.hpp>
 
 using namespace sfl;
 

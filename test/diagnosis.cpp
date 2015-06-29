@@ -1,5 +1,5 @@
 #include "vendor/catch.hpp"
-#include "../src/diagnosis.hpp"
+#include <sfl/diagnosis.hpp>
 
 using namespace sfl;
 

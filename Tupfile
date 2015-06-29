@@ -1,4 +1,7 @@
 LIB_NAME    = sfl
+LIB_PATH    = lib/
+INCL_PATH   = include/
+BUILD_PATH  = build/
 TEST_TARGET = tests
 
 VERSION     = 0.0.1
@@ -9,11 +12,12 @@ CXX = clang++
 CXXFLAGS := -Wall -Wextra -pipe -fPIC
 CXXFLAGS += -fcolor-diagnostics
 CXXFLAGS += -O2 -std=c++11
+CXXFLAGS += -I$(INCL_PATH)
 
 ifeq (@(TUP_PLATFORM),linux)
-  LIB_TARGET = lib$(LIB_NAME).so.$(VERSION)
-  SO_TARGET  = lib$(LIB_NAME).so.$(VERSION_BC)
   LD_TARGET  = lib$(LIB_NAME).so
+  LIB_TARGET = $(LD_TARGET).$(VERSION)
+  SO_TARGET  = $(LD_TARGET).$(VERSION_BC)
 
   SOFLAGS += -shared -Wl,-soname,$(SO_TARGET)
 endif
@@ -35,11 +39,17 @@ endif
 !build = |> $(CXX) $(CXXFLAGS) -c %f -o %o |>
 !link  = |> $(CXX) $(CXXFLAGS) %f $(LDFLAGS) -o %o |>
 
-: foreach src/*.cpp |> !build |> build/%B.o
-: build/*.o |> !link $(SOFLAGS) |> $(LIB_TARGET)
-: $(LIB_TARGET) |> ln -s %f %o |> $(SO_TARGET)
-: $(SO_TARGET) |> ln -s %f %o |> $(LD_TARGET)
+# building the shared library
+: foreach src/*.cpp |> !build |> $(BUILD_PATH)%B.o
+: $(BUILD_PATH)*.o |> !link $(SOFLAGS) |> $(LIB_PATH)$(LIB_TARGET)
 
-: foreach test/*.cpp |> !build |> build/test/%B.o
-: build/test/*.o | $(LIB_TARGET) $(SO_TARGET) $(LD_TARGET) |> \
-  !link -L. -l$(LIB_NAME) |> $(TEST_TARGET)
+# liba.1.2.3.so -> liba.1.so
+: $(LIB_PATH)$(LIB_TARGET) |> ln -s $(LIB_TARGET) %o |> $(LIB_PATH)$(SO_TARGET)
+# liba.1.so -> liba.so
+: $(LIB_PATH)$(SO_TARGET) |> ln -s $(SO_TARGET) %o |> $(LIB_PATH)$(LD_TARGET)
+
+# building the test suite
+: foreach test/*.cpp |> !build |> $(BUILD_PATH)test/%B.o
+: $(BUILD_PATH)test/*.o | \
+  $(LIB_PATH)$(LIB_TARGET) $(LIB_PATH)$(SO_TARGET) $(LIB_PATH)$(LD_TARGET) |> \
+  !link -L$(LIB_PATH) -l$(LIB_NAME) |> $(TEST_TARGET)

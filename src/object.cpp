@@ -1,9 +1,7 @@
-#include "object.hpp"
-
 #include <boost/format.hpp>
-
-#include "doctor.hpp"
-#include "errors.hpp"
+#include <sfl/doctor.hpp>
+#include <sfl/errors.hpp>
+#include <sfl/object.hpp>
 
 using namespace sfl;
 using namespace boost;

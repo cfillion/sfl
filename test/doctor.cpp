@@ -1,9 +1,8 @@
 #include "vendor/catch.hpp"
 
 #include <boost/format.hpp>
-
-#include "../src/doctor.hpp"
-#include "../src/errors.hpp"
+#include <sfl/doctor.hpp>
+#include <sfl/errors.hpp>
 
 using namespace sfl;
 

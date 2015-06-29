@@ -1,6 +1,5 @@
-#include "location.hpp"
-
-#include "errors.hpp"
+#include <sfl/errors.hpp>
+#include <sfl/location.hpp>
 
 using namespace sfl;
 

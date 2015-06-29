@@ -1,6 +1,5 @@
 #include "vendor/catch.hpp"
-
-#include "../src/location.hpp"
+#include <sfl/location.hpp>
 
 using namespace sfl;
 

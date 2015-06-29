@@ -1,8 +1,8 @@
 #include "vendor/catch.hpp"
 
-#include "../src/errors.hpp"
-#include "../src/object.hpp"
-#include "../src/doctor.hpp"
+#include <sfl/doctor.hpp>
+#include <sfl/errors.hpp>
+#include <sfl/object.hpp>
 
 using namespace sfl;
 

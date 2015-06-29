@@ -1,7 +1,7 @@
 #include "vendor/catch.hpp"
 
-#include "../src/errors.hpp"
-#include "../src/registry.hpp"
+#include <sfl/errors.hpp>
+#include <sfl/registry.hpp>
 
 using namespace sfl;
 

@@ -1,6 +1,4 @@
-#include "diagnosis.hpp"
-
-#include <cstring>
+#include <sfl/diagnosis.hpp>
 
 bool sfl::operator==(const diagnosis &left, const diagnosis &right)
 {
