@@ -7,11 +7,11 @@ TEST_TARGET = tests
 VERSION     = 0.0.1
 VERSION_BC  = 0
 
-CXX = clang++
+CXX = c++
 
 CXXFLAGS := -Wall -Wextra -pipe -fPIC
-CXXFLAGS += -fcolor-diagnostics
 CXXFLAGS += -fvisibility=hidden -fvisibility-inlines-hidden
+CXXFLAGS += -fdiagnostics-color
 CXXFLAGS += -O2 -std=c++11
 CXXFLAGS += -I$(INCL_PATH)
 

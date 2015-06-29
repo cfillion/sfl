@@ -18,11 +18,11 @@ namespace sfl {
   public:
     location(const context &c = sfl::context());
 
-    doctor *doctor() const { return m_context.doctor; }
-    registry *registry() const { return m_context.registry; }
+    class doctor *doctor() const { return m_context.doctor; }
+    class registry *registry() const { return m_context.registry; }
 
   private:
-    const context &context() const { return m_context; }
+    const struct context &context() const { return m_context; }
     sfl::context m_context;
 
     friend bool operator==(const location &left, const location &right);

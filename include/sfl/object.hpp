@@ -17,7 +17,7 @@ namespace sfl {
     int user_data() const { return m_definition->user_data(); }
     const std::string &name() const { return m_definition->name(); }
 
-    const location &location() const { return m_location; }
+    const class location &location() const { return m_location; }
 
   private:
     const sfl::definition *m_definition;

@@ -17,7 +17,7 @@ namespace sfl {
 
     enum level level() const { return m_level; }
     const std::string &message() const { return m_message; }
-    const location &location() const { return m_location; }
+    const class location &location() const { return m_location; }
 
   private:
     enum level m_level;
