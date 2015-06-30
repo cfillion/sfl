@@ -44,10 +44,12 @@ endif
 : foreach src/*.cpp |> !build -DSFL_SHARED |> $(BUILD_PATH)%B.o
 : $(BUILD_PATH)*.o |> !link $(SOFLAGS) |> $(LIB_PATH)$(LIB_TARGET)
 
-# liba.1.2.3.so -> liba.1.so
-: $(LIB_PATH)$(LIB_TARGET) |> ln -s $(LIB_TARGET) %o |> $(LIB_PATH)$(SO_TARGET)
-# liba.1.so -> liba.so
-: $(LIB_PATH)$(SO_TARGET) |> ln -s $(SO_TARGET) %o |> $(LIB_PATH)$(LD_TARGET)
+ifneq ($(SO_TARGET),)
+  # liba.1.2.3.so -> liba.1.so
+  : $(LIB_PATH)$(LIB_TARGET) |> ln -s $(LIB_TARGET) %o |> $(LIB_PATH)$(SO_TARGET)
+  # liba.1.so -> liba.so
+  : $(LIB_PATH)$(SO_TARGET) |> ln -s $(SO_TARGET) %o |> $(LIB_PATH)$(LD_TARGET)
+endif
 
 # building the test suite
 : foreach test/*.cpp |> !build |> $(BUILD_PATH)test/%B.o
