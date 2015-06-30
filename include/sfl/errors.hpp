@@ -9,6 +9,7 @@ namespace sfl {
   class SFL_EXPORT error {};
 
   ERROR_TYPE(duplicate_definition);
+  ERROR_TYPE(illegal_name);
   ERROR_TYPE(missing_doctor);
   ERROR_TYPE(missing_registry);
   ERROR_TYPE(unknown_object);

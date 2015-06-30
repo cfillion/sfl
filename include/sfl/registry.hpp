@@ -9,9 +9,7 @@
 namespace sfl {
   class SFL_EXPORT definition {
   public:
-    definition() {}
-    definition(const std::string &name, const int user_data = -1)
-      : m_name(name), m_user_data(user_data) {}
+    definition(const std::string &name, const int user_data = -1);
 
     const std::string &name() const { return m_name; }
     int user_data() const { return m_user_data; }

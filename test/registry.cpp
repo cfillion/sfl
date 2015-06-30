@@ -46,3 +46,15 @@ TEST_CASE("unknown definition", M) {
     reg.at("foo");
   }, std::out_of_range);
 }
+
+TEST_CASE("lowercase names", M) {
+  const definition def{"FOO_BAR"};
+  REQUIRE(def.name() == "foo_bar");
+}
+
+TEST_CASE("name validation", M) {
+  REQUIRE_THROWS_AS(definition{"a b"}, illegal_name);
+  REQUIRE_THROWS_AS(definition{"0x"}, illegal_name);
+  definition{"x0"};
+  definition{"_"};
+}
