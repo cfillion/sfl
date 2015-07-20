@@ -20,6 +20,8 @@ namespace sfl {
 
     variable(const std::string &name, const enum type t,
       const class location &loc = sfl::location());
+    variable(const std::string &name, const value_variant &v,
+      const class location &loc = sfl::location());
 
     const std::string &name() const { return m_name; }
     const class location &location() const { return m_location; }
@@ -54,10 +56,10 @@ namespace sfl {
     std::type_index type_of(const type) const;
 
     std::string m_name;
+    value_variant m_value;
     std::type_index m_type;
     class location m_location;
     bool m_undefined;
-    value_variant m_value;
   };
 };
 

@@ -50,3 +50,11 @@ TEST_CASE("reading undefined values", M) {
     var.get<std::string>();
   }, undefined_value);
 }
+
+TEST_CASE("direct definition", M) {
+  SECTION("string") {
+    variable var("name", "hello world");
+    REQUIRE(!var.empty());
+    REQUIRE(var.get<std::string>() == "hello world");
+  }
+}
