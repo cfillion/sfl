@@ -24,6 +24,7 @@ namespace sfl {
       const class location &loc = sfl::location());
 
     const std::string &name() const { return m_name; }
+    enum type type() const { return m_type_id; }
     const class location &location() const { return m_location; }
     bool empty() const { return m_undefined; }
 
@@ -32,7 +33,7 @@ namespace sfl {
     {
       // creating a temporary variant allows the assignment of compatible
       // but not strictly equal types (eg. a const char * in a string variable)
-      const value_variant test = val;
+      const value_variant test{val};
       if(std::type_index(test.type()) != m_type)
         throw invalid_assignment();
 
@@ -53,11 +54,12 @@ namespace sfl {
     }
 
   private:
-    std::type_index type_of(const type) const;
+    std::type_index type_of(const enum type) const;
 
     std::string m_name;
     value_variant m_value;
     std::type_index m_type;
+    enum type m_type_id;
     class location m_location;
     bool m_undefined;
   };

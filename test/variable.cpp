@@ -12,6 +12,7 @@ TEST_CASE("variable attributes", M) {
   variable var("name", variable::string, loc);
 
   REQUIRE(var.name() == "name");
+  REQUIRE(var.type() == variable::string);
   REQUIRE(var.location() == loc);
 }
 
@@ -54,6 +55,7 @@ TEST_CASE("reading undefined values", M) {
 TEST_CASE("direct definition", M) {
   SECTION("string") {
     variable var("name", "hello world");
+    REQUIRE(var.type() == variable::string);
     REQUIRE(!var.empty());
     REQUIRE(var.get<std::string>() == "hello world");
   }
