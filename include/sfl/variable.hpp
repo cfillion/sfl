@@ -7,7 +7,6 @@
 
 #include <boost/variant.hpp>
 #include <string>
-#include <typeindex>
 
 namespace sfl {
   typedef boost::variant<std::string, int> value_variant;
@@ -24,7 +23,7 @@ namespace sfl {
       const class location &loc = sfl::location());
 
     const std::string &name() const { return m_name; }
-    enum type type() const { return m_type_id; }
+    enum type type() const { return m_type; }
     const class location &location() const { return m_location; }
     bool empty() const { return m_undefined; }
 
@@ -34,7 +33,7 @@ namespace sfl {
       // creating a temporary variant allows the assignment of compatible
       // but not strictly equal types (eg. a const char * in a string variable)
       const value_variant test{val};
-      if(std::type_index(test.type()) != m_type)
+      if(test.which() != m_type)
         throw invalid_assignment();
 
       m_value = val;
@@ -45,21 +44,21 @@ namespace sfl {
     template<typename T>
     const T &get() const
     {
-      if(std::type_index(typeid(T)) != m_type)
-        throw invalid_conversion();
-      else if(m_undefined)
+      if(m_undefined)
         throw undefined_value();
 
-      return boost::get<T>(m_value);
+      try {
+        return boost::get<T>(m_value);
+      }
+      catch(const boost::bad_get &) {
+        throw invalid_conversion();
+      }
     }
 
   private:
-    std::type_index type_of(const enum type) const;
-
     std::string m_name;
     value_variant m_value;
-    std::type_index m_type;
-    enum type m_type_id;
+    enum type m_type;
     class location m_location;
     bool m_undefined;
   };
