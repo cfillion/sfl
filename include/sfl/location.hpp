@@ -25,15 +25,14 @@ namespace sfl {
     const struct context &context() const { return m_context; }
     sfl::context m_context;
 
-    friend bool operator==(const location &left, const location &right);
-    friend bool operator!=(const location &left, const location &right);
+    friend bool operator==(const location &, const location &);
   };
 
-  SFL_EXPORT bool operator==(const context &left, const context &right);
-  SFL_EXPORT bool operator!=(const context &left, const context &right);
+  SFL_EXPORT bool operator==(const context &, const context &);
+  SFL_EXPORT bool operator!=(const context &, const context &);
 
-  SFL_EXPORT bool operator==(const location &left, const location &right);
-  SFL_EXPORT bool operator!=(const location &left, const location &right);
+  SFL_EXPORT bool operator==(const location &, const location &);
+  SFL_EXPORT bool operator!=(const location &, const location &);
 };
 
 #endif

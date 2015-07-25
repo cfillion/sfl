@@ -1,8 +1,9 @@
+#include <sfl/object.hpp>
+
 #include <boost/algorithm/string/case_conv.hpp>
 #include <boost/format.hpp>
 #include <sfl/doctor.hpp>
 #include <sfl/errors.hpp>
-#include <sfl/object.hpp>
 
 using namespace boost;
 using namespace sfl;
@@ -24,4 +25,24 @@ object::object(const string &name, const sfl::location &loc)
   }
 
   m_definition = &reg->at(lc_name);
+}
+
+int object::var_count(const std::string &name) const
+{
+  // TODO: count up in the object tree
+  return m_variables.count(name);
+}
+
+void object::var_set(const variable &var)
+{
+  m_variables.erase(var.name());
+  m_variables.insert({var.name(), var});
+}
+
+const variable &object::var_get(const std::string &name) const
+{
+  if(!m_variables.count(name))
+    throw undefined_variable();
+
+  return m_variables.at(name);
 }

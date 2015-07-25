@@ -7,6 +7,7 @@
 
 #include <boost/variant.hpp>
 #include <string>
+#include <unordered_map>
 
 namespace sfl {
   typedef boost::variant<std::string, int> value_variant;
@@ -15,6 +16,7 @@ namespace sfl {
   public:
     enum type {
       string,
+      temp_type, // TODO: replace me
     };
 
     variable(const std::string &name, const enum type t,
@@ -61,7 +63,14 @@ namespace sfl {
     enum type m_type;
     class location m_location;
     bool m_undefined;
+
+    friend bool operator==(const variable &, const variable &);
   };
+
+  typedef std::unordered_map<std::string, variable> variable_map;
+
+  SFL_EXPORT bool operator==(const variable &, const variable &);
+  SFL_EXPORT bool operator!=(const variable &, const variable &);
 };
 
 #endif

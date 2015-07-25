@@ -60,3 +60,37 @@ TEST_CASE("direct definition", M) {
     REQUIRE(var.get<std::string>() == "hello world");
   }
 }
+
+TEST_CASE("compare variables", M) {
+  SECTION("by name") {
+    variable a{"a", variable::string};
+    variable b{"b", variable::string};
+
+    REQUIRE(a == a);
+    REQUIRE(a != b);
+  }
+
+  SECTION("by type") {
+    variable a{"test", variable::string};
+    variable b{"test", variable::temp_type};
+
+    REQUIRE(a == a);
+    REQUIRE(a != b);
+  }
+
+  SECTION("by value") {
+    variable a{"test", "hello world"};
+    variable b{"test", "chunky bacon"};
+
+    REQUIRE(a == a);
+    REQUIRE(a != b);
+  }
+
+  SECTION("by location") {
+    variable a{"test", variable::string, location({0, 0})};
+    variable b{"test", variable::string, location({(doctor*)1, 0})};
+
+    REQUIRE(a == a);
+    REQUIRE(a != b);
+  }
+}
