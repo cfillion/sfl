@@ -8,14 +8,6 @@ using namespace sfl;
 
 static const char *M = "[object]";
 
-static object make_object()
-{
-  registry reg;
-  reg.add({"foo"});
-  location loc({0, &reg});
-  return object{"foo", loc};
-}
-
 TEST_CASE("unregistered object", M) {
   doctor doc;
   registry reg;
@@ -57,7 +49,10 @@ TEST_CASE("error retains original name", M) {
 }
 
 TEST_CASE("set variable", M) {
-  object obj = make_object();
+  registry reg;
+  reg.add({"foo"});
+  location loc({0, &reg});
+  object obj{"foo", loc};
 
   REQUIRE(obj.var_count("test") == 0);
   obj.var_set({"test", variable::string});
@@ -65,7 +60,10 @@ TEST_CASE("set variable", M) {
 }
 
 TEST_CASE("get variable", M) {
-  object obj = make_object();
+  registry reg;
+  reg.add({"foo"});
+  location loc({0, &reg});
+  object obj{"foo", loc};
 
   REQUIRE_THROWS_AS({
     obj.var_get("test");
@@ -76,4 +74,33 @@ TEST_CASE("get variable", M) {
 
   REQUIRE(obj.var_get("test") == var);
   REQUIRE(obj.var_value<std::string>("test") == "hello world");
+}
+
+TEST_CASE("set unknown property", M) {
+  registry reg;
+  reg.add({"foo"});
+  location loc({0, &reg});
+  object obj{"foo", loc};
+
+  REQUIRE_THROWS_AS({
+    obj.var_set({"@test", variable::string});
+  }, unknown_property);
+
+  REQUIRE(obj.var_count("@test") == 0);
+}
+
+TEST_CASE("object properties", M) {
+  const variable prop{"@test", "hello world"};
+
+  definition def{"foo"};
+  def.add_property(prop);
+
+  registry reg;
+  reg.add(def);
+  location loc({0, &reg});
+  object obj{"foo", loc};
+
+  REQUIRE(obj.var_get("@test") == prop);
+  obj.var_set({"@test", variable::string});
+  REQUIRE(obj.var_get("@test") != prop);
 }

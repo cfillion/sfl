@@ -58,3 +58,16 @@ TEST_CASE("name validation", M) {
   definition{"x0"};
   definition{"_"};
 }
+
+TEST_CASE("set property", M) {
+  definition def{"foo"};
+
+  REQUIRE(def.properties().count("@bar") == 0);
+  def.add_property({"@bar", variable::string});
+
+  REQUIRE_THROWS_AS({
+    def.add_property({"@bar", variable::string});
+  }, duplicate_property);
+
+  REQUIRE(def.properties().count("@bar") == 1);
+}

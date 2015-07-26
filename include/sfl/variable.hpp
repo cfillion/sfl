@@ -28,6 +28,7 @@ namespace sfl {
     enum type type() const { return m_type; }
     const class location &location() const { return m_location; }
     bool empty() const { return m_undefined; }
+    bool is_property() const;
 
     template<typename T>
     variable &operator=(const T &val)

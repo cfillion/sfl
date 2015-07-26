@@ -20,6 +20,14 @@ definition::definition(const string &name, const int user_data)
     throw illegal_name();
 }
 
+void definition::add_property(const variable &var)
+{
+  if(m_properties.count(var.name()))
+    throw duplicate_property();
+
+  m_properties.insert({var.name(), var});
+}
+
 void registry::add(const definition &def)
 {
   if(count(def.name()))

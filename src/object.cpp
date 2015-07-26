@@ -30,19 +30,24 @@ object::object(const string &name, const sfl::location &loc)
 int object::var_count(const std::string &name) const
 {
   // TODO: count up in the object tree
-  return m_variables.count(name);
+  return m_definition->properties().count(name) + m_variables.count(name);
 }
 
 void object::var_set(const variable &var)
 {
+  if(var.is_property() && !m_definition->properties().count(var.name()))
+    throw unknown_property();
+
   m_variables.erase(var.name());
   m_variables.insert({var.name(), var});
 }
 
 const variable &object::var_get(const std::string &name) const
 {
-  if(!m_variables.count(name))
+  if(m_variables.count(name))
+    return m_variables.at(name);
+  else if(m_definition->properties().count(name))
+    return m_definition->properties().at(name);
+  else
     throw undefined_variable();
-
-  return m_variables.at(name);
 }

@@ -5,6 +5,7 @@
 #include <unordered_map>
 
 #include "macros.hpp"
+#include "variable.hpp"
 
 namespace sfl {
   class SFL_EXPORT definition {
@@ -14,9 +15,13 @@ namespace sfl {
     const std::string &name() const { return m_name; }
     int user_data() const { return m_user_data; }
 
+    const variable_map &properties() const { return m_properties; }
+    void add_property(const variable &);
+
   private:
     std::string m_name;
     int m_user_data;
+    variable_map m_properties;
   };
 
   typedef std::unordered_map<std::string, definition> definition_map;

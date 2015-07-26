@@ -13,6 +13,11 @@ variable::variable(const std::string &name, const value_variant &v,
     m_location(loc), m_undefined(false)
 {}
 
+bool variable::is_property() const
+{
+  return m_name[0] == '@';
+}
+
 bool sfl::operator==(const variable &left, const variable &right)
 {
   return left.name() == right.name() &&
