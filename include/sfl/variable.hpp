@@ -59,6 +59,8 @@ namespace sfl {
     }
 
   private:
+    void validate_name() const;
+
     std::string m_name;
     value_variant m_value;
     enum type m_type;

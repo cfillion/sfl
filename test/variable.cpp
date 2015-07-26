@@ -94,3 +94,11 @@ TEST_CASE("compare variables", M) {
     REQUIRE(a != b);
   }
 }
+
+TEST_CASE("invalid names", M) {
+  REQUIRE_THROWS_AS(variable("", variable::string), illegal_name);
+  REQUIRE_THROWS_AS(variable("", "hello world"), illegal_name);
+  REQUIRE_THROWS_AS(variable("@", variable::string), illegal_name);
+  REQUIRE_THROWS_AS(variable("hello world", variable::string), illegal_name);
+  REQUIRE_THROWS_AS(variable("test@", variable::string), illegal_name);
+}
