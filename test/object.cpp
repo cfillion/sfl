@@ -26,7 +26,7 @@ TEST_CASE("unregistered object", M) {
 
 TEST_CASE("case insensitive object name", M) {
   registry reg;
-  reg.add({"foo"});
+  reg.add_definition({"foo"});
   location loc({0, &reg});
 
   object{"FOO", loc};
@@ -50,7 +50,7 @@ TEST_CASE("error retains original name", M) {
 
 TEST_CASE("set variable", M) {
   registry reg;
-  reg.add({"foo"});
+  reg.add_definition({"foo"});
   location loc({0, &reg});
   object obj{"foo", loc};
 
@@ -61,7 +61,7 @@ TEST_CASE("set variable", M) {
 
 TEST_CASE("get variable", M) {
   registry reg;
-  reg.add({"foo"});
+  reg.add_definition({"foo"});
   location loc({0, &reg});
   object obj{"foo", loc};
 
@@ -78,7 +78,7 @@ TEST_CASE("get variable", M) {
 
 TEST_CASE("set unknown property", M) {
   registry reg;
-  reg.add({"foo"});
+  reg.add_definition({"foo"});
   location loc({0, &reg});
   object obj{"foo", loc};
 
@@ -96,7 +96,7 @@ TEST_CASE("object properties", M) {
   def.add_property(prop);
 
   registry reg;
-  reg.add(def);
+  reg.add_definition(def);
   location loc({0, &reg});
   object obj{"foo", loc};
 

@@ -28,7 +28,7 @@ void definition::add_property(const variable &var)
   m_properties.insert({var.name(), var});
 }
 
-void registry::add(const definition &def)
+void registry::add_definition(const definition &def)
 {
   if(count(def.name()))
     throw duplicate_definition();

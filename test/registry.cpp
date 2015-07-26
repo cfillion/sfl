@@ -21,7 +21,7 @@ TEST_CASE("add to registry", M) {
   registry reg;
   REQUIRE(reg.count("foo") == 0);
 
-  reg.add(definition{"foo"});
+  reg.add_definition(definition{"foo"});
 
   REQUIRE(reg.count("foo") == 1);
   REQUIRE(reg.at("foo").name() == "foo");
@@ -29,10 +29,10 @@ TEST_CASE("add to registry", M) {
 
 TEST_CASE("add duplicate", M) {
   registry reg;
-  reg.add(definition{"foo"});
+  reg.add_definition(definition{"foo"});
 
   REQUIRE_THROWS_AS({
-    reg.add(definition{"foo"});
+    reg.add_definition(definition{"foo"});
   }, duplicate_definition);
 
   REQUIRE(reg.count("foo") == 1);

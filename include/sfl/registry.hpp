@@ -34,7 +34,7 @@ namespace sfl {
     { return m_definitions.at(k); }
     int count(const std::string &k) const { return m_definitions.count(k); }
 
-    void add(const definition &d);
+    void add_definition(const definition &);
 
   private:
     definition_map m_definitions;
