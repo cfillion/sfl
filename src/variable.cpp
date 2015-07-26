@@ -5,7 +5,7 @@
 using namespace sfl;
 using namespace std;
 
-static const regex NAME_REGEX("^@?[a-z_][a-z0-9_]*$", regex::icase);
+static const regex NAME_REGEX("^@?[a-zA-Z_][a-zA-Z0-9_]*$");
 
 variable::variable(const std::string &name, const enum type t,
     const class location &loc)

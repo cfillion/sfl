@@ -101,4 +101,10 @@ TEST_CASE("invalid names", M) {
   REQUIRE_THROWS_AS(variable("@", variable::string), illegal_name);
   REQUIRE_THROWS_AS(variable("hello world", variable::string), illegal_name);
   REQUIRE_THROWS_AS(variable("test@", variable::string), illegal_name);
+  variable{"HELLO_WORLD", variable::string};
+}
+
+TEST_CASE("properties", M) {
+  REQUIRE_FALSE((variable{"name", variable::string}.is_property()));
+  REQUIRE((variable{"@name", variable::string}.is_property()));
 }
