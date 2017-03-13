@@ -2,7 +2,7 @@ LIB_NAME    = sfl
 LIB_PATH    = lib/
 INCL_PATH   = include/
 BUILD_PATH  = build/
-TEST_TARGET = tests
+TEST_TARGET = bin/test
 
 VERSION     = 0.0.1
 VERSION_BC  = 0
